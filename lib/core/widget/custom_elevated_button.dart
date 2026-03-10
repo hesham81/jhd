@@ -32,7 +32,9 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
       style: ElevatedButton.styleFrom(
         side: (widget.borderColor != null)
             ? BorderSide(
-                color: widget.borderColor ?? AppColors.secondaryColor, width: 2)
+                color: widget.borderColor ?? AppColors.secondaryColor,
+                width: 2,
+              )
             : null,
         backgroundColor: widget.btnColor ?? AppColors.secondaryColor,
         padding: widget.padding ?? EdgeInsets.symmetric(vertical: 15),

@@ -76,35 +76,39 @@ class _CategoriesState extends State<Categories> {
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) => CustomContainer(
-                          child: Row(
-                        children: [
-                          Text(
-                            state.listOfCategories[index].name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelMedium!
-                                .copyWith(
-                                  color: AppColors.secondaryColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                          Spacer(),
-                          Text(
-                            '${state.listOfCategories[index].price} EGP',
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelMedium!
-                                .copyWith(
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                        ],
-                      )),
+                        padding: EdgeInsets.all(15),
+                        child: Row(
+                          children: [
+                            Text(
+                              state.listOfCategories[index].name,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(
+                                    color: AppColors.secondaryColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            Spacer(),
+                            Text(
+                              '${state.listOfCategories[index].price} EGP',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
                       separatorBuilder: (context, index) => const Divider(),
                       itemCount: state.listOfCategories.length,
                       padding: EdgeInsets.zero,
                     );
+                  } else {
+                    return const SizedBox();
                   }
                 },
               ),
