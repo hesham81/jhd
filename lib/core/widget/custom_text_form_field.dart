@@ -16,6 +16,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool isReadOnly;
   final ValidationFunction? onChanged;
   final ValidationFunction? onSubmit;
+  final Color? color;
 
   const CustomTextFormField({
     super.key,
@@ -31,6 +32,7 @@ class CustomTextFormField extends StatefulWidget {
     this.keyboardType = TextInputType.text,
     this.isReadOnly = false,
     this.onSubmit,
+    this.color,
   });
 
   @override
@@ -53,12 +55,15 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       maxLines: widget.maxLine,
       validator: widget.validate,
       controller: widget.controller,
-      cursorColor: AppColors.secondaryColor,
+      cursorColor: widget.color ?? AppColors.secondaryColor,
       decoration: InputDecoration(
         suffixIcon: (widget.isPassword == false)
             ? (widget.suffixIcon == null)
                 ? null
-                : Icon(widget.suffixIcon)
+                : Icon(
+                    widget.suffixIcon,
+                    color: widget.color,
+                  )
             : IconButton(
                 onPressed: () {
                   setState(() {
@@ -72,35 +77,38 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 ),
               ),
         hintText: widget.hintText,
-        prefixIconColor: AppColors.secondaryColor,
-        suffixIconColor: AppColors.secondaryColor,
-        focusColor: AppColors.secondaryColor,
-        iconColor: AppColors.secondaryColor,
+        prefixIconColor: widget.color ?? AppColors.secondaryColor,
+        suffixIconColor: widget.color ?? AppColors.secondaryColor,
+        focusColor: widget.color ?? AppColors.secondaryColor,
+        iconColor: widget.color ?? AppColors.secondaryColor,
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xff677294), width: 1.5),
+          borderSide:
+              BorderSide(color: widget.color ?? Color(0xff677294), width: 1.5),
           borderRadius: BorderRadius.circular(widget.borderRadius),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xff677294), width: 1.5),
+          borderSide:
+              BorderSide(color: widget.color ?? Color(0xff677294), width: 1.5),
           borderRadius: BorderRadius.circular(widget.borderRadius),
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: Colors.red,
           ),
           borderRadius: BorderRadius.circular(widget.borderRadius),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xff677294), width: 1.5),
+          borderSide:
+              BorderSide(color: widget.color ?? Color(0xff677294), width: 1.5),
           borderRadius: BorderRadius.circular(widget.borderRadius),
         ),
       ),
       style: theme.labelLarge?.copyWith(
-            color: AppColors.secondaryColor,
+            color: widget.color ?? AppColors.secondaryColor,
           ) ??
           TextStyle(
             fontSize: 16,
-            color: AppColors.secondaryColor,
+            color: widget.color ?? AppColors.secondaryColor,
           ),
       obscureText: (widget.isPassword) ? !isVisible : false,
     );

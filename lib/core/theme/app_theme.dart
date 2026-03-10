@@ -9,7 +9,7 @@ abstract class AppTheme {
     appBarTheme: AppBarTheme(
       centerTitle: true,
       iconTheme: IconThemeData(color: AppColors.primaryColor),
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: AppColors.secondaryColor,
     ),
     textTheme: TextTheme(
       titleMedium: TextStyle(
