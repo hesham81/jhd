@@ -16,6 +16,8 @@ class CustomTextFormField extends StatefulWidget {
   final bool isReadOnly;
   final ValidationFunction? onChanged;
   final ValidationFunction? onSubmit;
+  // ignore: inference_failure_on_function_return_type
+  final  Function()? onEditingComplete;
   final Color? color;
 
   const CustomTextFormField({
@@ -33,6 +35,7 @@ class CustomTextFormField extends StatefulWidget {
     this.isReadOnly = false,
     this.onSubmit,
     this.color,
+    this.onEditingComplete,
   });
 
   @override
@@ -47,6 +50,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     var theme = Theme.of(context).textTheme;
 
     return TextFormField(
+      onEditingComplete: widget.onEditingComplete,
       onSaved: widget.onSubmit,
       onChanged: widget.onChanged,
       readOnly: widget.isReadOnly,

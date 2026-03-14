@@ -6,6 +6,7 @@ class CustomElevatedButton extends StatefulWidget {
 
   final Function()? onPressed;
   final Color? btnColor;
+  final LinearGradient? linearColor;
   final double borderRadius;
   final Color? borderColor;
   final EdgeInsets? padding;
@@ -18,6 +19,7 @@ class CustomElevatedButton extends StatefulWidget {
     this.borderRadius = 12,
     this.borderColor,
     this.padding,
+    this.linearColor,
   });
 
   @override
@@ -36,7 +38,8 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
                 width: 2,
               )
             : null,
-        backgroundColor: widget.btnColor ?? AppColors.secondaryColor,
+            
+        backgroundColor:  widget.btnColor ?? AppColors.secondaryColor,
         padding: widget.padding ?? EdgeInsets.symmetric(vertical: 15),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(widget.borderRadius),

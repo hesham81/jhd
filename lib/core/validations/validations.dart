@@ -18,6 +18,15 @@ abstract class Validations {
     return null;
   }
 
+  static String? isDescriptionValid(String password) {
+    if (password.isEmpty) {
+      return 'Please enter a Valid Description to the Order';
+    } else if (password.length < 6) {
+      return 'Description must be at least 6 characters';
+    }
+    return null;
+  }
+
   static String? isNameValid(String name) {
     if (name.isEmpty) {
       return "Please enter your name";
@@ -29,6 +38,18 @@ abstract class Validations {
     if (password != rePassword) {
       return "Password does not match";
     }
+    return null;
+  }
+
+  static String? isEgyptianPhoneValid(String phone) {
+    RegExp phoneRegex = RegExp(r'^01[0125][0-9]{8}$');
+
+    if (phone.isEmpty) {
+      return "Please enter your phone number";
+    } else if (!phoneRegex.hasMatch(phone)) {
+      return "Please enter a valid Egyptian phone number";
+    }
+
     return null;
   }
 }

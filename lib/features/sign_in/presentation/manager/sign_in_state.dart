@@ -11,7 +11,7 @@ final class SignInSuccess extends SignInState {
     BotToastServices.showSuccessMessage("Login Successfully");
     Navigator.pushNamedAndRemoveUntil(
       navigationKey.currentContext!,
-      RouteNames.home,
+      RouteNames.userHome,
       (route) => true,
     );
   }

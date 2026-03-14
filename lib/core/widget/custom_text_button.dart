@@ -4,11 +4,13 @@ import '/core/theme/app_colors.dart';
 class CustomTextButton extends StatefulWidget {
   final String text;
   final Function() onPressed;
+  final Color? color;
 
   const CustomTextButton({
     super.key,
     required this.text,
     required this.onPressed,
+    this.color,
   });
 
   @override
@@ -26,7 +28,7 @@ class _CustomTextButtonState extends State<CustomTextButton> {
       child: Text(
         widget.text,
         style: TextStyle(
-          color: AppColors.secondaryColor,
+          color: widget.color ?? AppColors.secondaryColor,
           fontWeight: FontWeight.bold,
           fontSize: 14,
         ),

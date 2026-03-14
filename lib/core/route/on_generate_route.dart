@@ -9,6 +9,11 @@ import 'package:jhd/features/home/presentation/pages/collections/presentation/pa
 import 'package:jhd/features/home/presentation/pages/collections/presentation/pages/collections.dart';
 import 'package:jhd/features/sign_in/presentation/manager/sign_in_cubit.dart';
 import 'package:jhd/features/sign_in/presentation/pages/sign_in.dart';
+import 'package:jhd/features/user_home/presentation/manager/user_home_cubit.dart';
+import 'package:jhd/features/user_home/presentation/pages/custom_order/presentation/manager/add_order_cubit.dart';
+import 'package:jhd/features/user_home/presentation/pages/custom_order/presentation/pages/custom_order.dart';
+import 'package:jhd/features/user_home/presentation/pages/custom_order/presentation/pages/pay_with_visa/presentation/pages/pay_with_visa_card.dart';
+import 'package:jhd/features/user_home/presentation/pages/user_home.dart';
 
 import '../../features/home/presentation/pages/home.dart';
 import '../../features/splash_screen/presentation/pages/splash_screen.dart';
@@ -34,6 +39,13 @@ abstract class OnGenerateRoute {
         return MaterialPageRoute(
           builder: (context) => const Home(),
         );
+      case RouteNames.userHome:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider<UserHomeCubit>(
+            create: (context) => UserHomeCubit()..getData(),
+            child: const UserHome(),
+          ),
+        );
       case RouteNames.addCollections:
         return MaterialPageRoute(
           builder: (context) => BlocProvider<AddCategoryCubit>(
@@ -48,10 +60,21 @@ abstract class OnGenerateRoute {
             child: const Categories(),
           ),
         );
+      case RouteNames.customOrder:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider<AddOrderCubit>(
+            create: (context) => AddOrderCubit()..getAllData(),
+            child: const CustomOrder(),
+          ),
+        );
+      case RouteNames.payWithVisaCard:
+        return MaterialPageRoute(
+          builder: (context) => const PayWithVisaCard(),
+        );
 
       default:
         return MaterialPageRoute(
-          builder: (context) => SplashScreen(),
+          builder: (context) => const SplashScreen(),
         );
     }
   }
