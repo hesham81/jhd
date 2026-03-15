@@ -7,24 +7,12 @@ final class SignInInitial extends SignInState {}
 final class SignInSuccess extends SignInState {
   final User user;
 
-  SignInSuccess(this.user) {
-    SharedPreferenceServices.setString(
-      StorageKeys.tokenKey,
-      this.user.uid,
-    );
-    BotToastServices.showSuccessMessage('Login Successfully');
-    Navigator.pushNamedAndRemoveUntil(
-      navigationKey.currentContext!,
-      RouteNames.userHome,
-      (route) => true,
-    );
-  }
+  SignInSuccess(this.user);
 }
 
 final class SignInFailed extends SignInState {
   final String errorMessage;
 
   SignInFailed(this.errorMessage) {
-    BotToastServices.showErrorMessage("Login Failed");
   }
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jhd/core/constant/app_assets.dart';
@@ -6,6 +7,7 @@ import 'package:jhd/core/extensions/dimensions.dart';
 import 'package:jhd/core/extensions/extensions.dart';
 import 'package:jhd/core/extensions/padding.dart';
 import 'package:jhd/core/route/route_names.dart';
+import 'package:jhd/core/services/role_based_route.dart';
 import 'package:jhd/core/theme/app_colors.dart';
 import 'package:jhd/core/widget/custom_container.dart';
 import 'package:jhd/features/user_home/presentation/manager/user_home_cubit.dart';
@@ -37,9 +39,27 @@ class _UserHomeState extends State<UserHome> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SafeArea(
-              child: Image.asset(
-                AppAssets.logo,
-                height: 80,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: RoleBasedRoute().logout,
+                    icon: const Icon(
+                      Icons.logout_sharp,
+                      color: Colors.red,
+                    ),
+                  ),
+                  Text(
+                    'Welcome Back',
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  Image.asset(
+                    AppAssets.logo,
+                    height: 80,
+                  ),
+                ],
               ),
             ),
             BlocBuilder<UserHomeCubit, UserHomeState>(

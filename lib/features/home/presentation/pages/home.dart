@@ -1,18 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jhd/core/constant/app_assets.dart';
 import 'package:jhd/core/extensions/extensions.dart';
-import 'package:jhd/core/extensions/padding.dart';
 import 'package:jhd/core/route/route_names.dart';
+import 'package:jhd/core/services/role_based_route.dart';
 import 'package:jhd/core/theme/app_colors.dart';
 import 'package:jhd/features/home/presentation/manager/admin_cubit.dart';
-import 'package:jhd/features/home/presentation/pages/add_user/presentation/pages/add_user.dart';
 import 'package:material_charts/material_charts.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:pie_chart/pie_chart.dart';
-import 'package:route_transitions/route_transitions.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -22,13 +18,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final dataMap = <String, double>{
-    "John": 50,
-    "Andro Adel": 3200,
-    "Jasmin": 200,
-    'Rawan': 1222,
-  };
-
   @override
   void initState() {
     _getCurrentUser();
@@ -77,21 +66,10 @@ class _HomeState extends State<Home> {
               const CircleAvatar(
                 radius: 65,
                 backgroundImage: NetworkImage(
-                    "https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Fmicrobiology.ucr.edu%2Fimage%2Fprofile-image-placeholder&ved=0CBYQjRxqFwoTCNCrvcSOlJMDFQAAAAAdAAAAABAm&opi=89978449"),
-              ),
-              0.02.height.hSpace,
-              ListTile(
-                onTap: () {},
-                title: const Row(
-                  children: [
-                    Text(
-                      "Users",
-                    ),
-                    Spacer(),
-                    Icon(Icons.person_2_outlined)
-                  ],
+                  "https://i.pinimg.com/736x/89/90/e0/8990e0304c44794197af164ab0138011.jpg",
                 ),
               ),
+              0.02.height.hSpace,
               ListTile(
                 onTap: () {
                   Navigator.pushNamed(
@@ -111,7 +89,7 @@ class _HomeState extends State<Home> {
               ),
               0.02.height.hSpace,
               ListTile(
-                onTap: () {},
+                onTap: RoleBasedRoute().logout,
                 title: const Row(
                   children: [
                     Text(

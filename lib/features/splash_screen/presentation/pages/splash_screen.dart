@@ -2,7 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:jhd/core/constant/app_assets.dart';
 import 'package:jhd/core/extensions/align.dart';
-import 'package:jhd/core/route/route_names.dart';
+import 'package:jhd/core/services/role_based_route.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,11 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Future.delayed(
       const Duration(seconds: 3),
-      () => Navigator.pushNamedAndRemoveUntil(
-        context,
-        RouteNames.home,
-        (route) => false,
-      ),
+      RoleBasedRoute.call,
     );
     super.initState();
   }
@@ -33,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FadeInUp(
-              duration: Duration(seconds: 2),
+              duration: const Duration(seconds: 2),
               child: Image.asset(AppAssets.logo).center)
         ],
       ),

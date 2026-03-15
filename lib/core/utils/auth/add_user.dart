@@ -117,10 +117,10 @@ class UsersCollections {
       );
       user.uid = data;
       await _colRef().add(user);
-      SharedPreferenceServices.setString(
-        SharedPreferenceKey.role,
-        user.role,
-      );
+      // SharedPreferenceServices.setString(
+      //   SharedPreferenceKey.role,
+      //   user.role,
+      // );
       BotToastServices.showSuccessMessage(
         'User Added Succefully',
       );
@@ -134,5 +134,26 @@ class UsersCollections {
         error.toString(),
       );
     }
+  }
+
+  Future<String?> getRoleByUserId(
+    String uid,
+  ) async {
+    try {
+      var response = await getAllUsers();
+      List<AddUserRequestDataModel> users = [];
+      response.fold(
+        (l) => print(l),
+        (r) => users = r,
+      );
+      for (var user in users) {
+        if (user.uid == uid) {
+          return user.role;
+        }
+      }
+    } catch (error) {
+      return null;
+    }
+    return null;
   }
 }
