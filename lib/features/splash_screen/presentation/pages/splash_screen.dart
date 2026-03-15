@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:jhd/core/constant/app_assets.dart';
 import 'package:jhd/core/extensions/align.dart';
 import 'package:jhd/core/route/route_names.dart';
-import 'package:jhd/features/sign_in/presentation/pages/sign_in.dart';
-import 'package:jhd/main.dart';
-import 'package:route_transitions/route_transitions.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,10 +15,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(
-      Duration(seconds: 3),
+      const Duration(seconds: 3),
       () => Navigator.pushNamedAndRemoveUntil(
         context,
-        RouteNames.signIn,
+        RouteNames.home,
         (route) => false,
       ),
     );

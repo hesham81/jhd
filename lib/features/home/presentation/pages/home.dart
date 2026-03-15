@@ -1,12 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jhd/core/constant/app_assets.dart';
 import 'package:jhd/core/extensions/extensions.dart';
 import 'package:jhd/core/extensions/padding.dart';
 import 'package:jhd/core/route/route_names.dart';
 import 'package:jhd/core/theme/app_colors.dart';
+import 'package:jhd/features/home/presentation/manager/admin_cubit.dart';
 import 'package:jhd/features/home/presentation/pages/add_user/presentation/pages/add_user.dart';
+import 'package:material_charts/material_charts.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:route_transitions/route_transitions.dart';
 
@@ -126,44 +130,116 @@ class _HomeState extends State<Home> {
         ),
       ),
       body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              PieChart(dataMap: dataMap),
-              0.02.height.hSpace,
-              const Divider(),
-              0.02.height.hSpace,
-              Text(
-                'Users Reports',
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      fontWeight: FontWeight.bold,
+        child: BlocBuilder<AdminCubit, AdminState>(
+          builder: (context, state) {
+            if (state is AdminSuccess) {
+              return SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    0.02.height.hSpace,
+                    Text(
+                      'Insight Reports',
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
-              ),
-              ListView.separated(
-                itemBuilder: (context, index) => const ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundImage: NetworkImage(
-                          'https://scontent-hbe1-1.xx.fbcdn.net/v/t39.30808-6/475437101_9038149546260938_7908073895246431393_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=111&ccb=1-7&_nc_sid=53a332&_nc_ohc=Wf0Pp7ioejcQ7kNvwHZa3bp&_nc_oc=Adm5B4cRsMbzLaqdo-4dSwQtmXM7qV1KV38ZnpV-jB2_ipcZAwtv-3xr1aZ0sYI-EpI&_nc_zt=23&_nc_ht=scontent-hbe1-1.xx&_nc_gid=2YrVQPX7PY0DIl6Ms4EMhw&_nc_ss=8&oh=00_Afx22PPS9784ESfuGx6wujb1EMmV7aqNhnqRdaeqE9mTcw&oe=69B55BB0',
+                    PieChart(
+                      initialAngleInDegree: 20,
+                      chartRadius: 250,
+                      dataMap: state.budgets,
+                    ),
+                    0.02.height.hSpace,
+                    const Divider(),
+                    Text(
+                      'Most Orders',
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    MaterialBarChart(
+                      style: const BarChartStyle(
+                        barColor: Colors.black,
+                      ),
+                      showGrid: true,
+                      showValues: true,
+                      horizontalGridLines: 8,
+                      data: state.orderDetails
+                          .map(
+                            (e) => BarChartData(
+                              value: e.values.first,
+                              label: e.keys.first.toString(),
+                            ),
+                          )
+                          .toList(),
+                      width: 10,
+                      height: 300,
+                    ),
+                    const Divider(),
+                    0.02.height.hSpace,
+                    Text(
+                      'Users ',
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    ListView.separated(
+                      itemBuilder: (context, index) => ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        hoverColor: Colors.black,
+                        title: Row(
+                          children: [
+                            const CircleAvatar(
+                              radius: 30,
+                              backgroundImage: NetworkImage(
+                                'https://i.pinimg.com/736x/89/90/e0/8990e0304c44794197af164ab0138011.jpg',
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              state.users[index].name,
+                            ),
+                          ],
+                        ),
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          RouteNames.userDetails,
+                          arguments: state.users[index],
                         ),
                       ),
-                      Spacer(),
-                      Text('John Adel')
-                    ],
-                  ),
+                      separatorBuilder: (context, index) => 0.01.height.hSpace,
+                      itemCount: state.users.length,
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                    ),
+                  ],
                 ),
-                separatorBuilder: (context, index) => Divider(),
-                itemCount: 10,
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-              ),
-            ],
-          ),
+              );
+            } else if (state is AdminFailed) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  0.35.height.hSpace,
+                  const Icon(
+                    Icons.error_outline_rounded,
+                    color: Colors.grey,
+                    size: 80,
+                  ),
+                  0.02.height.hSpace,
+                  Text(
+                    state.errorMessage,
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  )
+                ],
+              );
+            } else {
+              return const SizedBox();
+            }
+          },
         ),
       ).hPadding(0.03.width),
     );

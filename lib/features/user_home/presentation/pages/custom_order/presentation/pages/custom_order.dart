@@ -153,7 +153,6 @@ class _CustomOrderState extends State<CustomOrder> {
                             tasks: state.categories,
                             totalOrder: state.totalAmount,
                           );
-                          log('This is the order ${order.toJson()}');
 
                           context.read<AddOrderCubit>().addOrder(order);
                         }

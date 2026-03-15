@@ -8,7 +8,11 @@ final class SignInSuccess extends SignInState {
   final User user;
 
   SignInSuccess(this.user) {
-    BotToastServices.showSuccessMessage("Login Successfully");
+    SharedPreferenceServices.setString(
+      StorageKeys.tokenKey,
+      this.user.uid,
+    );
+    BotToastServices.showSuccessMessage('Login Successfully');
     Navigator.pushNamedAndRemoveUntil(
       navigationKey.currentContext!,
       RouteNames.userHome,
@@ -20,7 +24,7 @@ final class SignInSuccess extends SignInState {
 final class SignInFailed extends SignInState {
   final String errorMessage;
 
-  SignInFailed(this.errorMessage){
+  SignInFailed(this.errorMessage) {
     BotToastServices.showErrorMessage("Login Failed");
   }
 }

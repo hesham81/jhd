@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jhd/core/route/route_names.dart';
+import 'package:jhd/features/home/presentation/manager/admin_cubit.dart';
+import 'package:jhd/features/home/presentation/pages/add_user/data/models/add_user_request_data_model.dart';
 import 'package:jhd/features/home/presentation/pages/add_user/presentation/manager/add_user_cubit.dart';
 import 'package:jhd/features/home/presentation/pages/add_user/presentation/pages/add_user.dart';
 import 'package:jhd/features/home/presentation/pages/collections/presentation/manager/get_all_categorise_cubit.dart';
 import 'package:jhd/features/home/presentation/pages/collections/presentation/pages/add_collections/presentation/manager/add_category_cubit.dart';
 import 'package:jhd/features/home/presentation/pages/collections/presentation/pages/add_collections/presentation/pages/add_collections.dart';
 import 'package:jhd/features/home/presentation/pages/collections/presentation/pages/collections.dart';
+import 'package:jhd/features/home/presentation/pages/user_details/presentation/manager/user_details_cubit.dart';
+import 'package:jhd/features/home/presentation/pages/user_details/presentation/pages/user_details.dart';
 import 'package:jhd/features/sign_in/presentation/manager/sign_in_cubit.dart';
 import 'package:jhd/features/sign_in/presentation/pages/sign_in.dart';
 import 'package:jhd/features/user_home/presentation/manager/user_home_cubit.dart';
@@ -35,9 +39,24 @@ abstract class OnGenerateRoute {
             child: const AddUser(),
           ),
         );
+
+      case RouteNames.userDetails:
+        final user = settings.arguments as AddUserRequestDataModel;
+
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider<UserDetailsCubit>(
+            create: (BuildContext context) => UserDetailsCubit(),
+            child: UserDetails(
+              userRequestDataModel: user,
+            ),
+          ),
+        );
       case RouteNames.home:
         return MaterialPageRoute(
-          builder: (context) => const Home(),
+          builder: (context) => BlocProvider<AdminCubit>(
+            create: (context) => AdminCubit()..syncData(),
+            child: const Home(),
+          ),
         );
       case RouteNames.userHome:
         return MaterialPageRoute(

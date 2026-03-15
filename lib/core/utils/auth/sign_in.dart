@@ -13,12 +13,12 @@ abstract class SignInAuth {
       );
 
       if (response.user == null) {
-        return  Left("Error While Sign In");
+        return const Left('Error While Sign In');
       } else {
         return Right(response.user!);
       }
     } on FirebaseAuthException catch (error) {
-      return Left(error.message ?? "Sign in failed");
+      return Left(error.message ?? 'Sign in failed');
     }
   }
 }

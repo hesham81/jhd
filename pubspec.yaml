@@ -26,6 +26,9 @@ dependencies:
   flutter_credit_card: ^4.1.0
   custom_check_box: ^0.0.4
   select_field: ^2.0.0
+  shared_preferences: ^2.5.4
+  percent_indicator: ^4.2.5
+  material_charts: ^0.0.39
 
 dev_dependencies:
   flutter_test:

@@ -7,4 +7,5 @@ abstract class RouteNames {
   static const String userHome = '/layout/user/';
   static const String customOrder = '/layout/user/custom-order';
   static const String payWithVisaCard = '/layout/user/custom-order/pay-with-visa-card';
+  static const String userDetails = '/layout/user/user-details';
 }

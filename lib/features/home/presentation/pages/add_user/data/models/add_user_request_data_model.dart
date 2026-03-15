@@ -21,14 +21,14 @@ class AddUserRequestDataModel extends AddUserRequest {
         password: data['password'] as String,
       );
 
-  Map<String, dynamic> toMap(AddUserRequest user) {
+  Map<String, dynamic> toMap() {
     return {
-      'role': user.role,
-      'email': user.email,
-      'name': user.name,
-      'uid': user.uid,
-      'password': user.password,
-      'createdAt': user.createdAt.millisecondsSinceEpoch
+      'role': this.role,
+      'email': this.email,
+      'name': this.name,
+      'uid': this.uid,
+      'password': this.password,
+      'createdAt': this.createdAt.millisecondsSinceEpoch
     };
   }
 }

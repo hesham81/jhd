@@ -8,7 +8,7 @@ import 'package:jhd/core/widget/custom_elevated_button.dart';
 import 'package:jhd/core/widget/custom_text_form_field.dart';
 import 'package:jhd/features/sign_in/domain/entities/sign_in_request.dart';
 
-import '../manager/sign_in_cubit.dart';
+import 'package:jhd/features/sign_in/presentation/manager/sign_in_cubit.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -25,7 +25,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = context.read<SignInCubit>();
+    final cubit = context.read<SignInCubit>();
     return Scaffold(
       body: Form(
         key: formKey,
@@ -95,10 +95,10 @@ class _SignInState extends State<SignIn> {
                   }
                 }
             ),
-            Spacer(),
+            const Spacer(),
             SafeArea(
               child: Text(
-                "Presented By : Hisham Aymen \n To John Adel Hairdresser\n2026",
+                'Presented By : Hisham Aymen \n To John Adel Hairdresser\n2026',
                 textAlign: TextAlign.center,
                 style: Theme
                     .of(context)
